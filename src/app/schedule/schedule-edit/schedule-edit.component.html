@@ -1,0 +1,98 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row pad-all">
+     
+        <h4 class="title margin-left-right">{{prof.name}}</h4>
+        
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="pad-left-right">
+        <div class="row">
+         
+          <span class="label-value">Profession : {{prof.profession}}</span>
+          <span class="label-value">Email : {{prof.email}}</span>
+          <span class="label-value">Phone : {{prof.phone}}</span>
+         
+
+    
+        
+        </div>
+        <div class="row">
+          <form id="add-appointment" (ngSubmit)="onSubmit(appoint)" #appoint="ngForm">
+
+           
+
+            <input
+            type="hidden"
+            id="profId"
+            name="profId"
+            class="form-control"
+            [ngModel]='profId'
+            required
+            >
+
+
+
+            <div class="row">
+              <div class="col-sm-12 form-group">
+                <label for="appdate">Date</label>
+                <input
+                  type="date"
+                  id="newDate"
+                  class="form-control"
+                  name="newDate"
+                  [min]="newDatemin"
+                  [ngModel]='newDate'
+                  #newDates="ngModel"
+                  required
+                  >
+              </div>
+            </div>
+      
+            <div class="row">
+              <div class="col-sm-12 form-group">
+
+
+                <label for="apptime">Time:</label>
+      
+                <select
+                  name="newTime"
+                  id="newTime"
+                  [ngModel]="newTime"
+                  class="form-control">
+                  <option
+                    *ngFor="let availtime of availtimes"
+                    [value]="availtime">{{ availtime }}</option>
+                </select>
+              </div>
+              
+            </div>
+      
+      
+            <div class="row" *ngIf="!appoint.valid && newDates.touched">
+              <div class="col-sm-12 form-group">
+                <p class="alert alert-danger">
+                  Date and Time is needed
+                </p>
+              </div>
+            </div>
+
+
+        
+
+
+      
+            <div class="row">
+              <div class="col-xs-12 btn-toolbar">
+                <button class="btn btn-success" type="submit" [disabled]="!appoint.valid && newDates.touched">Save</button>
+                <button class="btn btn-primary" type="button" (click)="onCancel()">Cancel</button>
+              </div>
+            </div>
+      
+          </form>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>

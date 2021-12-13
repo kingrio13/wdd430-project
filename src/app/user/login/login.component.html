@@ -1,0 +1,45 @@
+<section class="form-signin">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <img class="mb-4 mylogo" src="../../../assets/img/BeastMode512.png" alt="my logo">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+  
+      <div class="form-floating">
+
+        
+        <input type="email" 
+        class="form-control" 
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        id="userEmail" 
+        placeholder="name@example.com" 
+        required name="userEmail" 
+        [ngModel]="userEmail" 
+        #xEmail="ngModel">
+        <label for="floatingInput">Email address</label>
+        <div class="help-block alert alert-danger" *ngIf="!xEmail.valid && xEmail.touched">Input a Valid Email Address</div>  
+      </div>
+
+      
+
+
+      <div class="form-floating">
+        <input type="password" 
+        placeholder="Password"
+        class="form-control" 
+        id="userPassword" 
+        name="userPassword" 
+        [ngModel]="userPassword" 
+        #xPassword="ngModel"
+        required >
+        
+        
+        <label for="floatingPassword">Password</label>
+        
+      </div>
+      <div class="help-block alert alert-danger" *ngIf="!xPassword">Password Needed</div>
+     
+
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit" [disabled]="!f.valid">Sign in</button>
+      <p class="mt-5 mb-3 text-muted">© Rio Michael Miranda</p>
+    </form>
+</section>

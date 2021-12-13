@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row pad-all">
+     
+        <h4 class="title margin-left-right">{{prof.name}}</h4>
+        
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="pad-left-right">
+        <div class="row">
+         
+          <span class="label-value">Profession : {{prof.profession}}</span>
+          <span class="label-value">Email : {{prof.email}}</span>
+          <span class="label-value">Phone : {{prof.phone}}</span>
+        
+        </div>
+        <div class="row">
+            <input type="button" value="Set Appointment" (click)="onSetAppointment(prof.phone)">
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>

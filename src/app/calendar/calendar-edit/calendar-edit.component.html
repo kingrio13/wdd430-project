@@ -1,0 +1,99 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row pad-all">
+     
+       
+     
+
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="pad-left-right">
+        <div class="row">
+        
+        
+
+
+
+          <span class="label-value"></span>
+       
+
+      <div *ngFor='let items of originalMyProf.professional'>
+                Name: {{items.name}}
+                <br>
+                Profession: {{items.profession}}
+                <br>
+                Email: {{items.email}}
+                <br>
+                Phone: {{items.phone}}
+             </div>
+          
+
+
+
+             <form id="calendar-edit" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+            <div class="row">
+                
+            <input
+            type="hidden"
+            id="calId"
+            name="calId"
+            class="form-control"
+            [ngModel]='calId'
+            required
+            >
+            </div>
+                
+
+             
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                  <label for="appdate">Date</label>
+                  <input
+                    type="date"
+                    id="newDate"
+                    class="form-control"
+                    name="newDate"
+                    [min]="newDatemin"
+                    [ngModel]='newDate'
+                    #newDates="ngModel"
+                    required
+                    >
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="col-sm-12 form-group">
+  
+  
+                  <label for="apptime">Time:</label>
+        
+                  <select
+                  name="newTime"
+                  id="newTime"
+                  [ngModel]="newTimeSelected"
+                  class="form-control">
+                  <option
+                    *ngFor="let availtime of availtimes"
+                    [value]="availtime">{{ availtime }}</option>
+                </select>
+                </div>
+              </div>
+        
+
+          <div class="row">
+            <input type="Submit" value="Update Appointment">
+            <input type="button" value="Cancel Changes" (click)="onCancel()">
+        </div>
+
+      </form>
+        
+        </div>
+       
+        <br>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,1 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+a{
+    cursor: pointer;
+}
+
+ul.nav li.active a{
+    color: rgb(168, 164, 164);
+}
+
+.dropdown-toggle.show ul.dropdown-menu{
+    display: block;
+}
+
+
+
+
+
+
+section.form-signin{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.form-signin .mylogo {
+    max-width: 150px;
+    margin: auto;
+    display: block;
+}
+
+.form-signin form{
+    min-width: 400px;
+
+}
+
+.form-signin form h1{
+    text-align: center;
+}
+
+.form-registration form.myRegistration input, .form-signin form input{
+    margin-bottom: .5em;
+}
+
+
+.btn-primary.disabled, .btn-primary:disabled{
+        opacity: .3;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
