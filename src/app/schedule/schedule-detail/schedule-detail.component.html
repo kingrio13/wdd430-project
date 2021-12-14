@@ -16,7 +16,7 @@
         
         </div>
         <div class="row">
-            <input type="button" value="Set Appointment" (click)="onSetAppointment(prof.phone)">
+            <input type="button" class="w-100 btn btn-lg btn-primary" value="Set Appointment" (click)="onSetAppointment(prof.phone)" [disabled]="!userIsAuthenticated">
         </div>
         <br>
       </div>

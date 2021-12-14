@@ -31,13 +31,13 @@ export class AppointService{
               const headers = new HttpHeaders({'Content-Type': 'application/json'});
               // add to database
 
-             console.log('im on appoint sevice')
+             //console.log('im on appoint sevice')
             this.http.post<{ message: string, appoints: Appoint }>('http://localhost:3000/schedule/set-appointment',
             appoint,
             { headers: headers })
             .subscribe(
               (responseData) => {
-                  console.log('responsedata service',responseData);
+                  //console.log('responsedata service',responseData);
               });
           
         }

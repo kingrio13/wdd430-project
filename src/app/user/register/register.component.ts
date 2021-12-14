@@ -15,7 +15,7 @@ export class RegisterComponent implements OnInit {
   userName='';
   userAddress='';
   userPhone='';
-  
+  type:any;
 
   constructor(private account:AccountService) { }
 
@@ -26,6 +26,15 @@ export class RegisterComponent implements OnInit {
     const value = form.value;
     this.account.registerAccount(value);
 
+  }
+
+
+
+
+  onSubmitProf(form:NgForm){
+    const value = form.value;
+    this.account.registerProf(value);
+    console.log(value);
   }
 
 

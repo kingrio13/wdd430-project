@@ -16,7 +16,7 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule  } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { ScheduleListComponent } from './schedule/schedule-list/schedule-list.component';
 import { ScheduleEditComponent } from './schedule/schedule-edit/schedule-edit.component';
 import { ScheduleDetailComponent } from './schedule/schedule-detail/schedule-detail.component';
@@ -26,6 +26,7 @@ import { CalendarListComponent } from './calendar/calendar-list/calendar-list.co
 import { CalendarItemComponent } from './calendar/calendar-list/calendar-item/calendar-item.component';
 import { CalendarDetailComponent } from './calendar/calendar-detail/calendar-detail.component';
 import { CalendarEditComponent } from './calendar/calendar-edit/calendar-edit.component';
+import { AuthInterceptor } from './user/auth.interceptor';
 
 
 @NgModule({
@@ -57,7 +58,7 @@ import { CalendarEditComponent } from './calendar/calendar-edit/calendar-edit.co
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

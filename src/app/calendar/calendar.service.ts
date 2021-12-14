@@ -5,6 +5,7 @@ import { Subject, throwError } from 'rxjs';
 
 import { Calendarappoint } from './calendar.model';
 import { Appoint } from '../shared/appoint.model';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -21,7 +22,7 @@ export class CalendarService {
   error = new Subject<string>();
 
 
-    constructor(private http:HttpClient) {
+    constructor(private http:HttpClient, private router:Router) {
     }
 
 
@@ -83,8 +84,9 @@ export class CalendarService {
           console.log(this.prof.slice());
            this.profListChangedEvent.next(this.prof.slice());
 
+           this.router.navigate(['/schedule']);
            //reload for now as im not sure what to do with the joint information.
-           window.location.reload();
+          //  window.location.reload();
 
           });
      
@@ -104,7 +106,7 @@ export class CalendarService {
 
       const pos = this.prof.findIndex(d => d._id === myprof._id);
 
-      console.log('position---', pos);
+    
       if (pos < 0) {
         return;
       }
@@ -117,8 +119,7 @@ export class CalendarService {
             this.prof.splice(pos, 1);
             this.profListChangedEvent.next(this.prof.slice());
            
-          }
-        );
+          });
 
      }
 

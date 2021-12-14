@@ -1,76 +1,78 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
+const Professionals = require('../models/professional');
+
 const Account = require('../models/account');
+const checkAuth = require('../middleware/check-auth');
 
 
-//test if database connected
-// router.get('/', (req, res, next) => {
-//     Account.find()
-//       .then(accounts => {
-//         res.status(200).json({
-//             message: 'Contacts fetched successfully!',
-//             accounts: accounts
-//           });
-//       })
-//       .catch(error => {
-//         res.status(500).json({
-//           message: 'An error occurred',
-//           error: error
-//         });
-//       });
-//   });
-
-router.post('/check', (req, res, next)=>{
-
-        console.log('hey');
-        //console.log(user);
-
-});
 
 
-router.post('/', (req, res, next) => {
-            Account.findOne({email:req.body.userEmail, password:req.body.userPassword})
-            .then(user=>{
-                if(!user){
-                    res.status(200).json({
-                    message: 'Please check your Username and Password'
-                    });
-                }else{
+router.post("/",  (req, res, next) => {
+    let fetchedUser;
+    Account.findOne({ email: req.body.userEmail })
+      .then(user => {
+        if (!user) {
+          return res.status(401).json({
+            message: "Auth failed"
+          });
+        }
+        fetchedUser = user;
+        return bcrypt.compare(req.body.userPassword, user.password);
+      })
+      .then(result => {
+        if (!result) {
+          return res.status(401).json({
+            message: "Auth failed"
+          });
+        }
 
-                 
+
+        //console.log(fetchedUser);
+
+        const token = jwt.sign(
+          { name: fetchedUser.name, userId: fetchedUser._id },
+          "appointment_secret",
+          { expiresIn: "1h" }
+        );
+        res.status(200).json({
+          token: token,
+          expiresIn: 3600,
+          usertoken:fetchedUser._id,
+          usertokenName:fetchedUser.name
+        });
 
 
-                    res.status(200).json({
-                        message: 'whoooa',
-                        accounts:user
-                        });
-                        
-                }
-                
-            })
-            
-            
-           
+
+      })
+      .catch(err => {
+        return res.status(401).json({
+          message: "Auth failed"
+        });
+      });
   });
+  
+
+
+
 
 
   router.post('/register', (req, res, next) => {
-    console.log('node',req.body.userEmail);
-    console.log('node',req.body.userPassword);
+    // console.log('node',req.body.userEmail);
+    // console.log('node',req.body.userPassword);
 
-    //check if email address is taken
 
-    Account.findOne({email:req.body.userEmail})
-    .then(user=>{
-        if(!user){
-        
+        bcrypt.hash(req.body.userPassword, 10).then(hash=>{
             let myuserlevel=1;
+            console.log('hash', hash);
             const account = new Account({
                  name: req.body.userName,
                  email: req.body.userEmail,
                  address: req.body.userAddress, 
                  phone: req.body.userPhone,
-                 password: req.body.userPassword, 
+                 password: hash,
                  userlevel: myuserlevel
               });
             
@@ -87,24 +89,42 @@ router.post('/', (req, res, next) => {
                       error: error
                     });
                 });
-
-
-            // res.status(200).json({
-            // message: 'Please check your Username and Password'
-            // });
-
-
-        }else{
-            res.status(200).json({
-                message: 'whoooa, username already exist men',
-                accounts:user
-                });
-        }
-        
-    })
+        })
+ 
 
    
 });
+
+
+
+router.post('/professionals', (req, res, next) => {
+
+         
+          const prof = new Professionals ({
+               name: req.body.profName,
+               email: req.body.profEmail,
+               phone: req.body.profPhone,
+               profession:req.body.profProfession
+            });
+          
+            prof.save()
+              .then(createdAccount => {
+                res.status(201).json({
+                  message: 'User added successfully',
+                  account: createdAccount
+                });
+              })
+              .catch(error => {
+                 res.status(500).json({
+                    message: 'An error occurred',
+                    error: error
+                  });
+              });
+      })
+
+
+ 
+
   
 
 

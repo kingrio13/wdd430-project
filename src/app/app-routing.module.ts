@@ -12,7 +12,7 @@ import { CalendarDetailComponent } from "./calendar/calendar-detail/calendar-det
 import { CalendarEditComponent } from "./calendar/calendar-edit/calendar-edit.component";
 
 const appRoutes:Routes = [
-    {path:'', redirectTo:'/schedule', pathMatch: 'full' },
+    {path:'', redirectTo:'/user/login', pathMatch: 'full' },
     {path:'schedule', component:ScheduleComponent, children:[
         {path:':id', component:ScheduleDetailComponent},
         {path:':id/new', component:ScheduleEditComponent},

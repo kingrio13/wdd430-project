@@ -1,13 +1,84 @@
 /* You can add global styles to this file, and also import other style files */
 
+header{
+    background: #92AFD7;
+    color:#fff;
+}
+
+header a{
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.3em;
+}
+
+
+section.intro{
+    margin-bottom: 20px;
+}
+
+.kindofuser label{
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 1.2em;
+}
+
+.kindofuser label:hover{
+    color:#92AFD7;
+}
+
+.kindofuser input[type="radio" i] {
+transform: scale(1.2);
+}
+
+
+#dropdownUser1, #dropdownUser1 .dropdown-menu li a {
+    font-size: 1em;
+}
+
+.list-group-item:hover{
+    background: #92AFD7;
+    border:#92AFD7;
+    color:#fff;
+    zoom:110%;
+}
+.list-group-item.active{
+    background: #92AFD7;
+    border:#92AFD7;
+}
+
+
+.btn-primary{
+    background: #92AFD7;
+    border:#92AFD7;
+}
+
+
+
+ul.nav li a:hover, ul.nav li.active a{
+    color:#fff;
+}
+
+
+
+.loginreg{
+    justify-content: flex-end !important;
+}
+
+.d-flex{
+    display: flex!important;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+
+
 
 a{
     cursor: pointer;
 }
 
-ul.nav li.active a{
-    color: rgb(168, 164, 164);
-}
+
 
 .dropdown-toggle.show ul.dropdown-menu{
     display: block;
@@ -50,3 +121,8 @@ section.form-signin{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.useraccount{
+    text-transform: uppercase;
+}

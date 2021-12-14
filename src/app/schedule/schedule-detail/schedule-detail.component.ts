@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AccountService } from 'src/app/user/account.service';
 import { Professionals } from '../professionals.model';
 import { ScheduleService } from '../schedule.service';
 
@@ -9,17 +10,20 @@ import { ScheduleService } from '../schedule.service';
   templateUrl: './schedule-detail.component.html',
   styleUrls: ['./schedule-detail.component.css']
 })
-export class ScheduleDetailComponent implements OnInit {
+export class ScheduleDetailComponent implements OnInit, OnDestroy {
 
 private profChange:Subscription;
 
 prof: Professionals;
 id:number;
+userIsAuthenticated = false;
+private authStatusSub: Subscription;
 
   constructor(
     private route:ActivatedRoute,
     private router:Router,
-    private scheduleService:ScheduleService
+    private scheduleService:ScheduleService,
+    private authService:AccountService
     ) { }
 
   ngOnInit(): void {
@@ -32,6 +36,16 @@ id:number;
 
            //console.log(this.prof);
           })  
+          
+          this.userIsAuthenticated = this.authService.getIsAuth();
+          this.authStatusSub = this.authService
+            .getAuthStatusListener()
+            .subscribe(isAuthenticated => {
+              this.userIsAuthenticated = isAuthenticated;
+            });
+
+
+          
   }
 
 
@@ -40,6 +54,10 @@ id:number;
     
       this.router.navigate(['new'], {relativeTo:this.route});
 
+  }
+
+  ngOnDestroy(): void {
+      this.authStatusSub.unsubscribe();
   }
 
 }

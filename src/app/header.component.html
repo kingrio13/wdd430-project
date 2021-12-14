@@ -1,33 +1,32 @@
 
 <header class="p-3 mb-3 border-bottom">
     <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-        </a>
+      <div class="d-flex">
+       
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" *ngIf="userIsAuthenticated">
           <li routerLinkActive="active"><a routerLink="/schedule" class="nav-link px-2 link-dark">Schedule</a></li>
         
           <li routerLinkActive="active"><a routerLink="/appointment" class="nav-link px-2 link-dark">Appointment</a></li>
         </ul>
 
     
-        <div class="dropdown text-end" *ngIf="isLogin">
-          <a appDropdown class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="" alt="mdo" width="32" height="32" class="rounded-circle">
+        <div class="dropdown text-end" *ngIf="userIsAuthenticated">
+          <a appDropdown class="d-block link-dark text-decoration-none dropdown-toggle useraccount" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            {{usertokenName}}
+      
         
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item"  routerLink="/user/settings">Settings</a></li>
             <li><a class="dropdown-item" routerLink="/user/profile">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" (click)="onLogout()">Sign out</a></li>
           </ul>
 
         </a>
         </div>
 
-        <div class="loginreg" *ngIf="!isLogin">
+        <div class="loginreg" *ngIf="!userIsAuthenticated">
           <a  routerLink="/user/login">Login</a> 
           | 
           <a  routerLink="/user/register">Register</a> 

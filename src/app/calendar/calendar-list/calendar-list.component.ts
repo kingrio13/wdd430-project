@@ -31,7 +31,7 @@ export class CalendarListComponent implements OnInit, OnDestroy {
    this.profListChange = this.calendarService.profListChangedEvent
    .subscribe((myappointment:Calendarappoint[])=>{
       this.myprof = myappointment;
-      console.log('hey theres changes',this.myprof);
+      //console.log('hey theres changes',this.myprof);
    });
 
 

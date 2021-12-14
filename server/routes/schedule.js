@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Prof = require('../models/professional');
 const Appoint = require('../models/appoint');
-
+const checkAuth = require('../middleware/check-auth');
 
 //test if database connected
 router.get('/', (req, res, next) => {
@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 
   
 
-  router.post('/set-appointment', (req, res, next) => {
+  router.post('/set-appointment', checkAuth, (req, res, next) => {
 
             //since we're not using cookie yet, ill hard code account for now. go back later and fix this
           
@@ -35,7 +35,7 @@ router.get('/', (req, res, next) => {
                  appTime: req.body.newTime,
                  appDate: req.body.newDate,
                  professional: req.body.profId, 
-                 account:'61a87ea040540abe2446b9eb'
+                 account:req.userData.userId
               });
             
               appoint.save()

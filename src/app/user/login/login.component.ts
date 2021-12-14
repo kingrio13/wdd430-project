@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { AccountService } from '../account.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   userEmail='';
   userPassword='';
 
-  constructor(private account:AccountService) { }
+  constructor(
+    private account:AccountService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
   onSubmit(form:NgForm) {
       const value = form.value;
       this.account.getAccount(value);
+    
   }
 
 }

@@ -3,9 +3,16 @@ const express = require('express');
 const router = express.Router();
 const Appointments = require('../models/appoint');
 
+const checkAuth= require('../middleware/check-auth');
+
+
 //test if database connected
-router.get('/', (req, res, next) => {
-    Appointments.find({account:'61a87ea040540abe2446b9eb'}).populate('professional')
+router.get('/', checkAuth,(req, res, next) => {
+
+  
+  //console.log('reqdata',req);
+
+    Appointments.find({account:req.userData.userId}).populate('professional')
        .then(accounts => {
          res.status(200).json({
              message: 'Contacts fetched successfully!',
@@ -21,11 +28,13 @@ router.get('/', (req, res, next) => {
    });
 
 
-   router.delete("/:id", (req, res, next) => {
-    Appointments.findOne({ id: req.params.id })
-      .then(Appointments => {
-        Appointments.deleteOne({ id: req.params.id })
+
+
+   router.delete("/:id",checkAuth, (req, res, next) => {
+        Appointments.deleteOne({ _id: req.params.id })
           .then(result => {
+            console.log('reqID', req.params.id);
+            console.log('result deleted', result);
             res.status(204).json({
               message: "Appointments deleted successfully"
             });
@@ -36,17 +45,10 @@ router.get('/', (req, res, next) => {
              error: error
            });
           })
-      })
-      .catch(error => {
-        res.status(500).json({
-          message: 'Appointments not found.',
-          error: { Appointments: 'Appointments not found'}
-        });
-      });
-  });
+    });
 
 
-  router.put('/:id',(req,res,next)=>{
+  router.put('/:id',checkAuth,(req,res,next)=>{
 
    
     // console.log('newdate',req.body.newDate); 
@@ -75,30 +77,6 @@ router.get('/', (req, res, next) => {
     });
 
   })
-
-
-
-  // router.put('/:id',(req,res,next)=>{
-
-   
-  //   console.log('newdate',req.body.newDate); 
-  //   console.log('newtime',req.body.newTime); 
-
-
-  //   Appointments.findOne({ id: req.params.id })
-  //   .then(updateone=>{
-  //             updateone.appTime = req.body.newTime;
-  //             updateone.appDate = req.body.newDate;
-
-  //             return updateone.save();
-  //   }).catch(err => {
-  //     const error = new Error(err);
-  //     error.httpStatusCode = 500;
-  //     return next(error);
-  //   });
-
-  // })
-
 
 
 module.exports = router;
