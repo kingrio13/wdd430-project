@@ -55,7 +55,7 @@ router.get('/', checkAuth,(req, res, next) => {
     // console.log('newtime',req.body.newTime); 
 
 
-    Appointments.findOne({ id: req.params.id })
+    Appointments.findOne({ _id: req.params.id })
     .then(updateone=>{
 
               updateone.appTime = req.body.newTime;
@@ -63,7 +63,7 @@ router.get('/', checkAuth,(req, res, next) => {
               updateone.professional='';
               updateone.account=updateone.account;
 
-    Appointments.updateOne({ id: req.params.id }, updateone)
+    Appointments.updateOne({ _id: req.params.id }, updateone)
     .then(result => {
                 console.log('result',result);
                 res.status(204).json({
